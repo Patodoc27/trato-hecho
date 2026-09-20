@@ -1592,6 +1592,8 @@ async function elegirMultiplicadores(){
         cont.appendChild(b);
       });
       pantalla('#pantalla-multi');
+      musicaInicio.currentTime=0;
+      musicaInicio.play().catch(()=>{});
     });
   }
 }
@@ -1768,9 +1770,9 @@ function pintarDiploma(cv,j,esGanador){
   c.font='700 42px Fredoka, sans-serif';
   c.translate(W/2,H/2); c.rotate(-Math.PI/6);
   c.textAlign='center';
-  for(let y=-1400;y<1600;y+=200)
-    for(let x=-1400;x<1600;x+=700)
-      c.fillText('TRATO HECHO · STO. TOMÁS DE VILLANUEVA',x,y);
+  for(let y=-1400;y<1600;y+=160)
+    for(let x=-1400;x<1600;x+=430)
+      c.fillText('TRATO HECHO',x,y);
   c.restore();
 }
 
