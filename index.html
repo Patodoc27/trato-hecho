@@ -170,7 +170,7 @@ details.docente pre{padding:12px;overflow:auto;margin:8px 0;white-space:pre-wrap
 .maletin{position:relative;border:none;background:none;padding:0;transition:transform .15s;line-height:0}
 .maletin svg{width:100%;height:auto;display:block;filter:drop-shadow(0 5px 0 rgba(0,0,0,.45))}
 .maletin:hover:not(.abierto):not(.mio){transform:translateY(-6px) rotate(-2deg)}
-.maletin.abierto{cursor:default;opacity:.55}
+.maletin.abierto{cursor:default;opacity:.8}
 .maletin.mio{animation:flotar 2.4s ease-in-out infinite}
 .maletin.mio svg{filter:drop-shadow(0 0 16px rgba(255,201,60,.95)) drop-shadow(0 5px 0 rgba(0,0,0,.45))}
 @keyframes flotar{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
@@ -1090,10 +1090,15 @@ function cuentaRegresiva(){
 
 /* ---------- elección de valija ---------- */
 function svgMaletin(numero,color,valor,abierto,corona,fondoAbierto){
-  const INK='#14101f', ORO='#FFC93C', ORO2='#EFA726', LUZ='#FFE9A8', PAPEL='#FFFDF6';
+  const INK='#14101f', ORO='#F5A623', ORO2='#D97706', LUZ='#FFD24A', PAPEL='#FFFDF6',
+        METAL='#E9EDF2', METAL2='#B9C2CE', INT='#2A1E3F';
   const uid='m'+String(numero).replace(/[^a-zA-Z0-9]/g,'')+(abierto?'a':'c');
-  const grad='<linearGradient id="g'+uid+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="'+LUZ+'"/><stop offset=".45" stop-color="'+ORO+'"/><stop offset="1" stop-color="'+ORO2+'"/></linearGradient>';
+  const grad='<linearGradient id="g'+uid+'" x1="0" y1="0" x2="0" y2="1">'+
+    '<stop offset="0" stop-color="'+LUZ+'"/><stop offset=".45" stop-color="'+ORO+'"/><stop offset="1" stop-color="'+ORO2+'"/></linearGradient>';
+  const gradM='<linearGradient id="m'+uid+'" x1="0" y1="0" x2="0" y2="1">'+
+    '<stop offset="0" stop-color="'+METAL+'"/><stop offset="1" stop-color="'+METAL2+'"/></linearGradient>';
   const coronaSvg = corona ? '<span class="corona"><svg viewBox="0 0 48 42" width="30" height="26" aria-hidden="true"><path d="M5 32 L3 12 L15 21 L24 7 L33 21 L45 12 L43 32 Z" fill="'+ORO+'" stroke="'+INK+'" stroke-width="4" stroke-linejoin="round"/><rect x="8" y="33" width="32" height="5" rx="2.5" fill="'+ORO+'" stroke="'+INK+'" stroke-width="3.5"/></svg></span>' : '';
+  const traba=function(x,y){return '<rect x="'+x+'" y="'+y+'" width="14" height="17" rx="4" fill="url(#m'+uid+')" stroke="'+INK+'" stroke-width="4"/><rect x="'+(x+3)+'" y="'+(y+5)+'" width="8" height="7" rx="2.5" fill="'+INK+'"/>';};
   if(abierto){
     const tope=Math.max.apply(null,VALORES);
     const mediana=VALORES[Math.floor(VALORES.length/2)];
@@ -1101,28 +1106,39 @@ function svgMaletin(numero,color,valor,abierto,corona,fondoAbierto){
     const placa = esX2||valor===tope ? ORO : (typeof valor==='number' && valor>mediana ? '#FF4FA3' : '#12C2E9');
     const texto = typeof valor==='number'?fmtC(valor):valor;
     const tam = String(texto).length>7?11:15;
-    return '<svg viewBox="0 0 110 104" aria-hidden="true"><defs>'+grad+'</defs>'+
-      '<path d="M42 40 V34 a6 6 0 0 1 6-6 h14 a6 6 0 0 1 6 6 v6" fill="none" stroke="'+INK+'" stroke-width="6" stroke-linecap="round"/>'+
-      '<g transform="rotate(-16 55 40)"><rect x="14" y="8" width="82" height="26" rx="9" fill="url(#g'+uid+')" stroke="'+INK+'" stroke-width="5"/><rect x="14" y="8" width="82" height="10" rx="5" fill="'+PAPEL+'" opacity=".45"/></g>'+
-      '<rect x="5" y="40" width="100" height="58" rx="11" fill="url(#g'+uid+')" stroke="'+INK+'" stroke-width="5"/>'+
-      '<rect x="5" y="40" width="100" height="14" rx="7" fill="'+INK+'"/>'+
-      '<ellipse cx="55" cy="47" rx="30" ry="7" fill="'+LUZ+'" opacity=".5"/>'+
-      '<rect x="26" y="60" width="58" height="30" rx="7" fill="'+placa+'" stroke="'+INK+'" stroke-width="4"/>'+
-      '<rect x="30" y="63" width="50" height="8" rx="4" fill="#ffffff" opacity=".28"/>'+
-      '<text x="55" y="81" text-anchor="middle" font-family="Fredoka, sans-serif" font-size="'+tam+'" font-weight="700" fill="'+(esX2||valor===tope?'#241a10':'#fff')+'">'+texto+'</text>'+
+    return '<svg viewBox="0 0 110 106" aria-hidden="true"><defs>'+grad+'</defs>'+
+      /* tapa levantada detrás, con cara interior más oscura */
+      '<g transform="rotate(-14 55 42)"><rect x="12" y="4" width="86" height="30" rx="10" fill="url(#g'+uid+')" stroke="'+INK+'" stroke-width="5"/><rect x="20" y="10" width="70" height="18" rx="7" fill="#C9760E"/></g>'+
+      /* brillo que sale de adentro */
+      '<path d="M30 30 L46 14 M55 26 L55 8 M80 30 L64 14" stroke="'+LUZ+'" stroke-width="4" stroke-linecap="round" opacity=".85"/>'+
+      /* cuerpo */
+      '<rect x="4" y="40" width="102" height="60" rx="12" fill="url(#g'+uid+')" stroke="'+INK+'" stroke-width="5"/>'+
+      /* boca abierta: interior oscuro con resplandor */
+      '<rect x="10" y="44" width="90" height="15" rx="7.5" fill="'+INT+'"/>'+
+      '<ellipse cx="55" cy="52" rx="32" ry="7" fill="'+LUZ+'" opacity=".55"/>'+
+      traba(14,38)+traba(82,38)+
+      /* placa con el monto */
+      '<rect x="24" y="64" width="62" height="30" rx="7" fill="'+placa+'" stroke="'+INK+'" stroke-width="4"/>'+
+      '<rect x="28" y="67" width="54" height="8" rx="4" fill="#ffffff" opacity=".3"/>'+
+      '<text x="55" y="85" text-anchor="middle" font-family="Fredoka, sans-serif" font-size="'+tam+'" font-weight="700" fill="'+(esX2||valor===tope?'#241a10':'#fff')+'">'+texto+'</text>'+
       '</svg>'+coronaSvg;
   }
-  return '<svg viewBox="0 0 110 92" aria-hidden="true"><defs>'+grad+'<clipPath id="c'+uid+'"><rect x="5" y="20" width="100" height="66" rx="11"/></clipPath></defs>'+
-    '<path d="M40 20 V14 a6 6 0 0 1 6-6 h18 a6 6 0 0 1 6 6 v6" fill="none" stroke="'+INK+'" stroke-width="6" stroke-linecap="round"/>'+
-    '<rect x="5" y="20" width="100" height="66" rx="11" fill="url(#g'+uid+')" stroke="'+INK+'" stroke-width="5"/>'+
-    '<g clip-path="url(#c'+uid+')"><polygon points="20,20 34,20 18,86 4,86" fill="#ffffff" opacity=".22"/><rect x="5" y="80" width="100" height="6" fill="'+INK+'" opacity=".12"/></g>'+
-    '<rect x="5" y="47" width="100" height="5" fill="'+INK+'" opacity=".28"/>'+
-    '<rect x="16" y="41" width="13" height="15" rx="3" fill="#F7F3E9" stroke="'+INK+'" stroke-width="4"/><circle cx="22.5" cy="48.5" r="2.4" fill="'+INK+'"/>'+
-    '<rect x="81" y="41" width="13" height="15" rx="3" fill="#F7F3E9" stroke="'+INK+'" stroke-width="4"/><circle cx="87.5" cy="48.5" r="2.4" fill="'+INK+'"/>'+
-    '<rect x="33" y="57" width="44" height="26" rx="6" fill="'+PAPEL+'" stroke="'+INK+'" stroke-width="4"/>'+
-    '<rect x="37" y="60" width="36" height="7" rx="3.5" fill="'+INK+'" opacity=".08"/>'+
-    '<text x="55" y="76" text-anchor="middle" font-family="Fredoka, sans-serif" font-size="19" font-weight="700" fill="#241a56">'+numero+'</text>'+
-    '<text x="55" y="40" text-anchor="middle" font-family="Fredoka, sans-serif" font-size="11" font-weight="600" fill="'+INK+'" opacity=".55">TH</text>'+
+  return '<svg viewBox="0 0 110 94" aria-hidden="true"><defs>'+grad+gradM+'<clipPath id="c'+uid+'"><rect x="4" y="20" width="102" height="70" rx="12"/></clipPath></defs>'+
+    /* manija */
+    '<rect x="38" y="4" width="34" height="20" rx="9" fill="#C9760E" stroke="'+INK+'" stroke-width="5"/>'+
+    /* cuerpo */
+    '<rect x="4" y="20" width="102" height="70" rx="12" fill="url(#g'+uid+')" stroke="'+INK+'" stroke-width="5"/>'+
+    '<g clip-path="url(#c'+uid+')"><polygon points="22,20 38,20 20,90 4,90" fill="#ffffff" opacity=".25"/><rect x="4" y="82" width="102" height="8" fill="'+INK+'" opacity=".14"/></g>'+
+    /* remaches de esquina */
+    '<circle cx="14" cy="30" r="2.6" fill="'+INK+'" opacity=".4"/><circle cx="96" cy="30" r="2.6" fill="'+INK+'" opacity=".4"/>'+
+    /* costura de la tapa */
+    '<rect x="4" y="48" width="102" height="6" fill="'+INK+'" opacity=".3"/>'+
+    traba(14,42)+traba(82,42)+
+    /* placa con el número */
+    '<rect x="31" y="58" width="48" height="28" rx="7" fill="'+PAPEL+'" stroke="'+INK+'" stroke-width="4"/>'+
+    '<rect x="35" y="61" width="40" height="7" rx="3.5" fill="'+INK+'" opacity=".08"/>'+
+    '<text x="55" y="79" text-anchor="middle" font-family="Fredoka, sans-serif" font-size="19" font-weight="700" fill="#241a56">'+numero+'</text>'+
+    '<text x="55" y="40" text-anchor="middle" font-family="Fredoka, sans-serif" font-size="11" font-weight="600" fill="'+INK+'" opacity=".5">TH</text>'+
     '</svg>'+coronaSvg;
 }
 
