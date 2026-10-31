@@ -79,10 +79,11 @@ input,textarea{-webkit-user-select:text;user-select:text}
 @keyframes parpadeo{0%,100%{opacity:1}50%{opacity:.25}}
 
 .reglas{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px;text-align:left}
-.regla{background:rgba(255,255,255,.06);border:2px solid var(--borde);border-radius:18px;padding:14px}
+.regla{background:rgba(20,14,50,.82);border:2px solid var(--borde);border-radius:18px;padding:14px}
 .regla .ico{display:block;line-height:0}
 .regla b{font-family:var(--display);font-size:1rem;font-weight:600;display:block;margin:4px 0 2px;color:var(--oro)}
 .regla span{font-size:.86rem;font-weight:700;color:var(--suave);line-height:1.4}
+.portada-box{text-align:center;position:relative;padding:10px 0 0}
 
 .tarjeta{background:rgba(20,14,50,.85);border:3px solid var(--borde);border-radius:24px;padding:22px;
   box-shadow:0 8px 0 rgba(0,0,0,.35)}
@@ -361,7 +362,7 @@ canvas.lienzo-diploma{display:block;width:100%;height:auto;border:3px solid var(
 <!-- 0. PORTADA -->
 <section class="pantalla activa" id="pantalla-portada">
   <div class="wrap">
-    <div class="marquesina">
+    <div class="portada-box">
       <div style="margin-top:8px"><span class="chapa">Biología</span></div>
       <img id="logo-portada" alt="TRATO HECHO" style="width:min(480px,88%);height:auto;display:block;margin:4px auto 0">
       <p style="font-weight:800;font-size:1.1rem;max-width:680px;margin:0 auto">Veintiséis valijas en un solo tablero. Cada una esconde una consigna de razonamiento… y plata. Una sola es tuya hasta el final.</p>
