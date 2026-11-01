@@ -1252,7 +1252,7 @@ function svgMaletin(numero,color,valor,abierto,corona,fondoAbierto){
     '</svg>'+coronaSvg;
 }
 
-document.addEventListener('DOMContentLoaded',()=>{const im=document.getElementById('logo-portada'); if(im) im.src='fondos/logo_trato.png?v=2';});
+document.addEventListener('DOMContentLoaded',()=>{const im=document.getElementById('logo-portada'); if(im) im.src='fondos/logo_trato.png?v=3';});
 let idxEleccion = 0;
 function elegirValijas(){
   if(idxEleccion===0 && !(typeof enLinea!=="undefined"&&enLinea)) armarTablero();
@@ -1890,7 +1890,7 @@ function dibujarDiplomas(){
     pintarDiploma(cv,j,J.indexOf(j)===g);
   });
 }
-const logoImg=new Image(); logoImg.src=LOGO_TH;
+const logoImg=new Image(); logoImg.src='fondos/logo_trato.png';
 function pintarDiploma(cv,j,esGanador){
   const c=cv.getContext('2d'), W=cv.width, H=cv.height;
   const fecha=new Date().toLocaleDateString('es-AR',{day:'2-digit',month:'long',year:'numeric'});
