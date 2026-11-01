@@ -78,7 +78,7 @@ input,textarea{-webkit-user-select:text;user-select:text}
 .foco:nth-child(5){animation-delay:.8s;background:var(--mandarina)}
 @keyframes parpadeo{0%,100%{opacity:1}50%{opacity:.25}}
 
-.reglas{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px;text-align:left}
+.reglas{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:20px auto 0;max-width:900px;text-align:left}
 .regla{background:rgba(30,22,70,.85);border:3px solid var(--oro);border-radius:18px;padding:14px;
   box-shadow:0 0 18px rgba(255,201,60,.35),0 6px 0 rgba(0,0,0,.45)}
 .regla .ico{display:block;line-height:0}
@@ -378,11 +378,11 @@ canvas.lienzo-diploma{display:block;width:100%;height:auto;border:3px solid var(
         <div class="regla"><span class="ico"><svg viewBox="0 0 48 48" width="34" height="34" aria-hidden="true"><rect x="8" y="6" width="32" height="11" rx="5.5" fill="#E0308A" stroke="#14101f" stroke-width="4"/><rect x="11" y="17" width="26" height="22" rx="6" fill="#E0308A" stroke="#14101f" stroke-width="4"/><circle cx="24" cy="28" r="6" fill="#FFFDF6" stroke="#14101f" stroke-width="3.5"/></svg></span><b>Llama la Banca</b><span>Te ofrece plata para que abandones… pero el trato recién se habilita después de la ronda 2.</span></div>
         <div class="regla"><span class="ico"><svg viewBox="0 0 48 48" width="34" height="34" aria-hidden="true"><path d="M15 7h18v9a9 9 0 0 1-18 0z" fill="#FFC93C" stroke="#14101f" stroke-width="4"/><path d="M15 10H9a6 6 0 0 0 7 7M33 10h6a6 6 0 0 1-7 7" fill="none" stroke="#14101f" stroke-width="4"/><rect x="21" y="24" width="6" height="8" fill="#FFC93C" stroke="#14101f" stroke-width="3.5"/><rect x="15" y="34" width="18" height="6" rx="3" fill="#FFC93C" stroke="#14101f" stroke-width="4"/></svg></span><b>Gana el mayor monto</b><span>Podés jugar contra otro estudiante o contra Boti, el bot. Se lleva todo quien junta más plata.</span></div>
       </div>
-      <p style="margin-top:14px;font-size:1.05rem;font-weight:800;color:#cfc6f2">Diseño: Patricia Inés Castro · Desarrollo asistido: Devin AI</p>
       <div class="focos"><span class="foco"></span><span class="foco"></span><span class="foco"></span><span class="foco"></span><span class="foco"></span></div>
     </div>
-    <div style="text-align:center;margin-top:18px">
+    <div style="text-align:center;margin-top:22px">
       <button class="btn rosa" id="btn-jugar">Jugar</button>
+      <p style="margin-top:16px;font-size:1.05rem;font-weight:800;color:#cfc6f2">Diseño: Patricia Inés Castro · Desarrollo asistido: Devin AI</p>
     </div>
   </div>
 </section>
@@ -1133,10 +1133,10 @@ function registrarPartida(){
 const musicaInicio=$('#musica-inicio'), btnMusica=$('#btn-musica');
 let musicaMuerta=false;
 musicaInicio.volume=.55;
+musicaInicio.play().catch(()=>{});
 /* los navegadores exigen un toque del usuario para sonar */
 document.addEventListener('pointerdown',e=>{
   if(musicaMuerta||btnMusica.contains(e.target)) return;
-  if(!$('#pantalla-registro').classList.contains('activa')) return;
   if(musicaInicio.paused) musicaInicio.play().catch(()=>{});
 });
 btnMusica.addEventListener('click',e=>{
@@ -1253,7 +1253,7 @@ function svgMaletin(numero,color,valor,abierto,corona,fondoAbierto){
     '</svg>'+coronaSvg;
 }
 
-document.addEventListener('DOMContentLoaded',()=>{const im=document.getElementById('logo-portada'); if(im) im.src=LOGO_TH;});
+document.addEventListener('DOMContentLoaded',()=>{const im=document.getElementById('logo-portada'); if(im) im.src='fondos/logo_trato.png?v=1';});
 let idxEleccion = 0;
 function elegirValijas(){
   if(idxEleccion===0 && !(typeof enLinea!=="undefined"&&enLinea)) armarTablero();
