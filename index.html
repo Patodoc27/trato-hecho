@@ -36,10 +36,14 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 button:focus-visible,input:focus-visible,textarea:focus-visible{outline:4px solid var(--turquesa);outline-offset:3px}
 input,textarea{-webkit-user-select:text;user-select:text}
 
-.pantalla{display:none;min-height:100vh;padding:20px clamp(12px,3vw,40px);position:relative;z-index:1;
+.pantalla{display:none;min-height:100vh;padding:12px clamp(12px,3vw,40px);position:relative;z-index:1;
   background-position:center;background-size:cover;background-repeat:no-repeat}
 #pantalla-portada{background-image:url("fondos/fondo_portada.webp?v=5");background-position:center bottom}
 #pantalla-registro{background-image:url("fondos/fondo_inicio.webp")}
+#pantalla-registro .wrap{grid-template-columns:1fr 1fr}
+#pantalla-registro .wrap>.tarjeta:first-of-type,
+#pantalla-registro .wrap>div:last-child{grid-column:1/-1}
+#pantalla-registro .wrap:not(.duo)>.tarjeta:nth-of-type(2){grid-column:1/-1}
 #pantalla-cuenta{background-image:url("fondos/fondo_juego.webp")}
 #pantalla-eleccion{background-image:url("fondos/fondo_juego.webp")}
 #pantalla-juego{background-image:url("fondos/fondo_juego.webp")}
@@ -61,7 +65,7 @@ input,textarea{-webkit-user-select:text;user-select:text}
 .btn.turquesa{background:var(--turquesa)}
 .btn[disabled]{opacity:.4;cursor:not-allowed;transform:none}
 
-.wrap{max-width:1180px;margin:0 auto;display:grid;gap:20px}
+.wrap{max-width:1180px;margin:0 auto;display:grid;gap:14px}
 .marquesina{text-align:center;background:rgba(20,14,50,.85);border:4px solid var(--oro);border-radius:28px;
   padding:26px 22px 22px;box-shadow:0 0 0 4px rgba(0,0,0,.35),0 0 60px rgba(255,201,60,.18);position:relative;overflow:hidden}
 .marquesina::before{content:"";position:absolute;top:0;left:0;right:0;height:12px;
@@ -70,7 +74,7 @@ input,textarea{-webkit-user-select:text;user-select:text}
   letter-spacing:-.02em;padding:0 .1em .16em;background:linear-gradient(180deg,#FFE9A8,var(--mandarina));
   -webkit-background-clip:text;background-clip:text;color:transparent;
   filter:drop-shadow(0 3px 0 rgba(0,0,0,.5))}
-.focos{display:flex;justify-content:center;gap:10px;margin-top:14px}
+.focos{display:flex;justify-content:center;gap:10px;margin-top:8px}
 .foco{width:14px;height:14px;border-radius:50%;background:var(--oro);border:3px solid #14101f;animation:parpadeo 1.4s infinite}
 .foco:nth-child(2){animation-delay:.2s;background:var(--parina)}
 .foco:nth-child(3){animation-delay:.4s;background:var(--turquesa)}
@@ -78,41 +82,41 @@ input,textarea{-webkit-user-select:text;user-select:text}
 .foco:nth-child(5){animation-delay:.8s;background:var(--mandarina)}
 @keyframes parpadeo{0%,100%{opacity:1}50%{opacity:.25}}
 
-.reglas{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:20px auto 0;max-width:900px;text-align:left}
-.regla{background:rgba(30,22,70,.85);border:3px solid var(--oro);border-radius:18px;padding:14px;
+.reglas{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:12px auto 0;max-width:900px;text-align:left}
+.regla{background:rgba(30,22,70,.85);border:3px solid var(--oro);border-radius:18px;padding:10px 12px;
   box-shadow:0 0 18px rgba(255,201,60,.35),0 6px 0 rgba(0,0,0,.45)}
 .regla .ico{display:block;line-height:0}
 .regla b{font-family:var(--display);font-size:1rem;font-weight:600;display:block;margin:4px 0 2px;color:var(--oro)}
 .regla span{font-size:.86rem;font-weight:700;color:var(--suave);line-height:1.4}
-.portada-box{text-align:center;position:relative;padding:10px 0 0}
-#btn-jugar{font-size:1.7rem !important;padding:22px 72px !important;border-width:4px;
+.portada-box{text-align:center;position:relative}
+#btn-jugar{font-size:1.7rem !important;padding:16px 64px !important;border-width:4px;
   box-shadow:0 0 26px rgba(224,48,138,.6),0 8px 0 rgba(0,0,0,.5)}
 #btn-jugar:hover{box-shadow:0 0 36px rgba(224,48,138,.8),0 10px 0 rgba(0,0,0,.5)}
 
-.tarjeta{background:rgba(20,14,50,.85);border:3px solid var(--borde);border-radius:24px;padding:22px;
+.tarjeta{background:rgba(20,14,50,.85);border:3px solid var(--borde);border-radius:24px;padding:12px 16px;
   box-shadow:0 8px 0 rgba(0,0,0,.35)}
-.tarjeta h2{font-family:var(--display);font-size:1.3rem;margin-bottom:14px;display:flex;align-items:center;gap:10px;color:var(--oro)}
+.tarjeta h2{font-family:var(--display);font-size:1.15rem;margin-bottom:8px;display:flex;align-items:center;gap:10px;color:var(--oro)}
 .tarjeta h2 .num{width:34px;height:34px;display:grid;place-items:center;border-radius:50%;
   background:var(--turquesa);border:3px solid #14101f;font-size:1rem;flex:none;color:#14101f}
-.campos{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.campos{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 label{display:block;font-weight:800;font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;color:var(--suave)}
-input[type=text]{width:100%;padding:13px 15px;font-size:1.05rem;font-family:var(--texto);font-weight:700;
+input[type=text]{width:100%;padding:9px 13px;font-size:1.05rem;font-family:var(--texto);font-weight:700;
   border:3px solid var(--borde);border-radius:14px;background:rgba(255,255,255,.92);color:#241a56}
 .secciones{display:flex;gap:12px}
-.chip-seccion{flex:1;padding:13px;border:3px solid var(--borde);border-radius:14px;background:rgba(255,255,255,.08);
+.chip-seccion{flex:1;padding:9px;border:3px solid var(--borde);border-radius:14px;background:rgba(255,255,255,.08);
   font-family:var(--display);font-size:1.15rem;font-weight:600;color:var(--tinta);transition:.15s}
 .chip-seccion[aria-pressed="true"]{background:var(--verde);color:#14101f;transform:translateY(-2px);box-shadow:0 6px 0 rgba(0,0,0,.4)}
 .modos{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.modo-op{border:3px solid var(--borde);border-radius:20px;padding:18px;background:rgba(255,255,255,.05);text-align:center;transition:.15s}
-.modo-op .ico{display:flex;justify-content:center;align-items:center;min-height:96px}
-.modo-op .ico img{width:96px;height:96px;display:block;border-radius:50%}
+.modo-op{border:3px solid var(--borde);border-radius:20px;padding:10px;background:rgba(255,255,255,.05);text-align:center;transition:.15s}
+.modo-op .ico{display:flex;justify-content:center;align-items:center;min-height:60px}
+.modo-op .ico img{width:60px;height:60px;display:block;border-radius:50%}
 .modo-op b{font-family:var(--display);font-size:1.15rem;display:block;margin:6px 0 2px}
 .modo-op span{font-size:.85rem;font-weight:700;color:var(--suave);line-height:1.4;display:block}
 .modo-op[aria-pressed="true"]{border-color:var(--oro);background:rgba(255,201,60,.14);transform:translateY(-3px);box-shadow:0 8px 0 rgba(0,0,0,.4)}
-.avatares{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.avatares{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
 .avatar-op{border:3px dashed rgba(189,178,230,.4);border-radius:20px;padding:14px 8px;background:rgba(255,255,255,.05);text-align:center;transition:.15s}
-.avatar-op .cara-img{width:min(96px,100%);aspect-ratio:1;margin:0 auto;box-shadow:0 5px 0 rgba(0,0,0,.35)}
-.avatar-op{padding:10px;border-radius:22px}
+.avatar-op .cara-img{width:min(60px,100%);aspect-ratio:1;margin:0 auto;box-shadow:0 5px 0 rgba(0,0,0,.35)}
+.avatar-op{padding:8px;border-radius:22px}
 .avatar-op[aria-pressed="true"]{border-style:solid;border-color:var(--oro);background:rgba(255,201,60,.16);transform:translateY(-4px) rotate(-2deg);box-shadow:0 8px 0 rgba(0,0,0,.4)}
 .avatar-op:disabled{opacity:.3;cursor:not-allowed}
 .avatar-op.tomado{opacity:.65}
@@ -369,7 +373,7 @@ canvas.lienzo-diploma{display:block;width:100%;height:auto;border:3px solid var(
 <section class="pantalla activa" id="pantalla-portada">
   <div class="wrap">
     <div class="portada-box">
-      <img id="logo-portada" alt="TRATO HECHO" style="width:min(480px,88%);height:auto;display:block;margin:4px auto 0">
+      <img id="logo-portada" alt="TRATO HECHO" style="width:min(400px,80%);height:auto;display:block;margin:0 auto">
       <p style="font-weight:800;font-size:1.1rem;max-width:680px;margin:0 auto">Veintiséis valijas en un solo tablero. Cada una esconde una consigna de razonamiento… y plata. Una sola es tuya hasta el final.</p>
       <div class="reglas">
         <div class="regla"><span class="ico"><svg viewBox="0 0 48 48" width="34" height="34" aria-hidden="true"><path d="M18 16v-4a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v4" fill="none" stroke="#14101f" stroke-width="4" stroke-linecap="round"/><rect x="5" y="16" width="38" height="26" rx="6" fill="#FFC93C" stroke="#14101f" stroke-width="4"/><rect x="5" y="27" width="38" height="5" fill="#14101f" opacity=".25"/><rect x="19" y="24" width="10" height="9" rx="2" fill="#FFFDF6" stroke="#14101f" stroke-width="3"/></svg></span><b>Elegís tu valija</b><span>Los dos juegan en el mismo tablero. La tuya queda iluminada y cerrada hasta el final.</span></div>
@@ -379,9 +383,9 @@ canvas.lienzo-diploma{display:block;width:100%;height:auto;border:3px solid var(
       </div>
       <div class="focos"><span class="foco"></span><span class="foco"></span><span class="foco"></span><span class="foco"></span><span class="foco"></span></div>
     </div>
-    <div style="text-align:center;margin-top:22px">
+    <div style="text-align:center;margin-top:12px">
       <button class="btn rosa" id="btn-jugar">Jugar</button>
-      <p style="margin-top:16px;font-size:1.05rem;font-weight:800;color:#cfc6f2">Diseño: Patricia Inés Castro · Desarrollo asistido: Devin AI</p>
+      <p style="margin-top:10px;font-size:.95rem;font-weight:800;color:#cfc6f2">Diseño: Patricia Inés Castro · Desarrollo asistido: Devin AI</p>
     </div>
   </div>
 </section>
@@ -1098,6 +1102,7 @@ $('#modos').addEventListener('click',e=>{
   b.setAttribute('aria-pressed','true'); modo=b.dataset.modo; beep(660,.08,'triangle');
   pintarAvatares(0); pintarAvatares(1);
   $('#tarjeta-j2').style.display = modo==='2p' ? 'block' : 'none';
+  $('#pantalla-registro .wrap').classList.toggle('duo', modo==='2p');
   $('#campo-sala').style.display = modo==='online' ? 'block' : 'none';
   $('#btn-empezar').textContent = modo==='online' ? textoEntrar() : 'Entrar al estudio';
   if(modo==='online') lobbyAbrir(); else lobbyCerrar();
@@ -2594,6 +2599,7 @@ $('#chat-rapidas').addEventListener('click',e=>{const b=e.target.closest('.chip'
   modo='online';
   document.querySelectorAll('.modo-op').forEach(x=>x.setAttribute('aria-pressed',x.dataset.modo==='online'?'true':'false'));
   $('#tarjeta-j2').style.display='none';$('#campo-sala').style.display='block';
+  $('#pantalla-registro .wrap').classList.remove('duo');
   red.me=g.me;redReset();red.rol=g.rol;yo=g.rol==='guest'?1:0;red.rondaT=+g.rondaT||0;
   redAbrirCanal(g.sala);red.rival=g.rival||null;
   red.canal.track({id:ID,rol:red.rol,n:g.me.n,ap:g.me.ap,a:g.me.a,s:g.me.s});
