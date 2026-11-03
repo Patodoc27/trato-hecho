@@ -1146,7 +1146,7 @@ $('#modos').addEventListener('click',e=>{
 });
 
 /* ---------- Google Sheets ---------- */
-const SHEET_DEFAULT = 'https://script.google.com/macros/s/AKfycbyXfZE4OAJdXdQqvzgcj36jRKrqe6Fg_-Tcu30XuA0S-pWgc-_nFDwPjfsJLAqsSDGS-Q/exec';
+const SHEET_DEFAULT = 'https://script.google.com/macros/s/AKfycbwQomHHwW9NxLbKvoUc6aUnr5mIArkKD1fMQVxsQQK5T-6HniVsWB6WeqIpZ95Hbh67vA/exec';
 const sheetURL = () => (localStorage.getItem(SHEET_KEY)||SHEET_DEFAULT).trim();
 function enviarFila(url,d){
   try{ fetch(url,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify(d)}); }
