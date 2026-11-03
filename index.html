@@ -924,16 +924,10 @@ function redondear(v){
   return Math.round(v/5000)*5000;
 }
 function generarValores(){
-  const top=TOPES[Math.floor(Math.random()*TOPES.length)];
-  const out=[]; let prev=0;
-  for(let i=0;i<TOTAL_MALETINES-1;i++){
-    const ideal=5000*Math.pow(top/5000, i/(TOTAL_MALETINES-1));
-    let v=redondear(ideal*(0.82+Math.random()*0.36));
-    if(v<=prev) v=prev+(prev<5000?100:prev<50000?500:prev<500000?2500:10000);
-    out.push(v); prev=v;
-  }
-  out.push(top<=prev ? prev+50000 : top);
-  return out;
+  return [5000, 7500, 10000, 15000, 20000, 30000, 45000, 60000, 80000,
+          100000, 150000, 200000, 300000, 450000, 600000, 800000,
+          1000000, 1250000, 1500000, 2000000, 2750000, 3500000,
+          4500000, 6000000, 8000000, 10000000];
 }
 
 /* ---------- tablero compartido y jugadores ---------- */
@@ -1271,7 +1265,7 @@ function cuentaRegresiva(){
 function svgMaletin(numero,color,valor,abierto,corona,fondoAbierto){
   const coronaSvg = corona ? '<span class="corona"><svg viewBox="0 0 48 42" width="30" height="26" aria-hidden="true"><path d="M5 32 L3 12 L15 21 L24 7 L33 21 L45 12 L43 32 Z" fill="#F5A623" stroke="#14101f" stroke-width="4" stroke-linejoin="round"/><rect x="8" y="33" width="32" height="5" rx="2.5" fill="#F5A623" stroke="#14101f" stroke-width="3.5"/></svg></span>' : '';
   if(abierto){
-    const texto = typeof valor==='number'?fmtC(valor):valor;
+    const texto = typeof valor==='number'?fmt(valor):valor;
     return '<img class="vimg" src="valijas/abierta.png" alt="" draggable="false">'+
       '<span class="placa-valija placa-abierta">'+texto+'</span>'+coronaSvg;
   }
