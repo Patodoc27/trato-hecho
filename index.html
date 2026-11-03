@@ -204,8 +204,8 @@ details.docente pre{padding:12px;overflow:auto;margin:8px 0;white-space:pre-wrap
 .maletin svg{width:100%;height:auto;display:block;filter:drop-shadow(0 5px 0 rgba(0,0,0,.45))}
 .maletin:hover:not(.abierto):not(.mio){transform:translateY(-6px) rotate(-2deg)}
 .maletin.abierto{cursor:default;opacity:.8}
-.maletin.mio{animation:flotar 2.4s ease-in-out infinite}
-.maletin.mio svg{filter:drop-shadow(0 0 16px rgba(255,201,60,.95)) drop-shadow(0 5px 0 rgba(0,0,0,.45))}
+.maletin.mio{border-radius:18px;box-shadow:0 0 0 4px rgba(255,201,60,.95),0 0 26px rgba(255,201,60,.85),0 0 60px rgba(255,201,60,.35)}
+.maletin.mio svg{filter:drop-shadow(0 5px 0 rgba(0,0,0,.45))}
 @keyframes flotar{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 
 .tablero h3{font-family:var(--display);font-size:1.05rem;margin-bottom:10px;text-align:center;color:var(--oro)}
@@ -1226,6 +1226,8 @@ $('#btn-empezar').addEventListener('click',()=>{
   }
   if(falta.length){ $('#aviso-registro').textContent='Falta: '+falta.join(' · ')+'.'; return; }
   $('#aviso-registro').textContent='';
+  guardarPerfil(0);
+  if(modo==='2p') guardarPerfil(1);
   if(modo==='online'){ audio(); redEntrar(); return; }
   J=[
     nuevoJugador({nombre:$('#in-nombre-0').value.trim(),apellido:$('#in-apellido-0').value.trim(),seccion:sel[0].seccion,avatar:sel[0].avatar},false),
@@ -1272,7 +1274,7 @@ function svgMaletin(numero,color,valor,abierto,corona,fondoAbierto){
   const gradM='<linearGradient id="m'+uid+'" x1="0" y1="0" x2="0" y2="1">'+
     '<stop offset="0" stop-color="'+METAL+'"/><stop offset="1" stop-color="'+METAL2+'"/></linearGradient>';
   const coronaSvg = corona ? '<span class="corona"><svg viewBox="0 0 48 42" width="30" height="26" aria-hidden="true"><path d="M5 32 L3 12 L15 21 L24 7 L33 21 L45 12 L43 32 Z" fill="'+ORO+'" stroke="'+INK+'" stroke-width="4" stroke-linejoin="round"/><rect x="8" y="33" width="32" height="5" rx="2.5" fill="'+ORO+'" stroke="'+INK+'" stroke-width="3.5"/></svg></span>' : '';
-  const traba=function(x,y){return '<rect x="'+x+'" y="'+y+'" width="14" height="17" rx="4" fill="url(#m'+uid+')" stroke="'+INK+'" stroke-width="4"/><rect x="'+(x+3)+'" y="'+(y+5)+'" width="8" height="7" rx="2.5" fill="'+INK+'"/>';};
+  const traba=function(x,y){return '<rect x="'+x+'" y="'+y+'" width="14" height="17" rx="4" fill="url(#m'+uid+')" stroke="'+INK+'" stroke-width="3"/><rect x="'+(x+3.5)+'" y="'+(y+5.5)+'" width="7" height="6" rx="2.5" fill="'+INK+'"/>';};
   if(abierto){
     const tope=Math.max.apply(null,VALORES);
     const mediana=VALORES[Math.floor(VALORES.length/2)];
@@ -1282,37 +1284,39 @@ function svgMaletin(numero,color,valor,abierto,corona,fondoAbierto){
     const tam = String(texto).length>7?11:15;
     return '<svg viewBox="0 0 110 106" aria-hidden="true"><defs>'+grad+'</defs>'+
       /* tapa levantada detrás, con cara interior más oscura */
-      '<g transform="rotate(-14 55 42)"><rect x="12" y="4" width="86" height="30" rx="10" fill="url(#g'+uid+')" stroke="'+INK+'" stroke-width="5"/><rect x="20" y="10" width="70" height="18" rx="7" fill="#C9760E"/></g>'+
+      '<g transform="rotate(-14 55 42)"><rect x="12" y="4" width="86" height="30" rx="10" fill="url(#g'+uid+')" stroke="'+INK+'" stroke-width="3.5"/><rect x="20" y="10" width="70" height="18" rx="7" fill="#C9760E"/></g>'+
       /* brillo que sale de adentro */
       '<path d="M30 30 L46 14 M55 26 L55 8 M80 30 L64 14" stroke="'+LUZ+'" stroke-width="4" stroke-linecap="round" opacity=".85"/>'+
       /* cuerpo */
-      '<rect x="4" y="40" width="102" height="60" rx="12" fill="url(#g'+uid+')" stroke="'+INK+'" stroke-width="5"/>'+
+      '<rect x="4" y="40" width="102" height="60" rx="12" fill="url(#g'+uid+')" stroke="'+INK+'" stroke-width="3.5"/>'+
       /* boca abierta: interior oscuro con resplandor */
       '<rect x="10" y="44" width="90" height="15" rx="7.5" fill="'+INT+'"/>'+
       '<ellipse cx="55" cy="52" rx="32" ry="7" fill="'+LUZ+'" opacity=".55"/>'+
       traba(14,38)+traba(82,38)+
       /* placa con el monto */
-      '<rect x="24" y="64" width="62" height="30" rx="7" fill="'+placa+'" stroke="'+INK+'" stroke-width="4"/>'+
+      '<rect x="24" y="64" width="62" height="30" rx="7" fill="'+placa+'" stroke="'+INK+'" stroke-width="3.5"/>'+
       '<rect x="28" y="67" width="54" height="8" rx="4" fill="#ffffff" opacity=".3"/>'+
-      '<text x="55" y="85" text-anchor="middle" font-family="Fredoka, sans-serif" font-size="'+tam+'" font-weight="700" fill="'+(esX2||valor===tope?'#241a10':'#fff')+'">'+texto+'</text>'+
+      '<text x="55" y="86" text-anchor="middle" font-family="Fredoka, sans-serif" font-size="'+tam+'" font-weight="700" fill="'+(esX2||valor===tope?'#241a10':'#fff')+'">'+texto+'</text>'+
       '</svg>'+coronaSvg;
   }
   return '<svg viewBox="0 0 110 94" aria-hidden="true"><defs>'+grad+gradM+'<clipPath id="c'+uid+'"><rect x="4" y="20" width="102" height="70" rx="12"/></clipPath></defs>'+
     /* manija */
-    '<rect x="38" y="4" width="34" height="20" rx="9" fill="#C9760E" stroke="'+INK+'" stroke-width="5"/>'+
+    '<rect x="38" y="4" width="34" height="20" rx="9" fill="#C9760E" stroke="'+INK+'" stroke-width="3.5"/>'+
+    '<rect x="45" y="22" width="20" height="4" rx="2" fill="'+INK+'" opacity=".35"/>'+
     /* cuerpo */
-    '<rect x="4" y="20" width="102" height="70" rx="12" fill="url(#g'+uid+')" stroke="'+INK+'" stroke-width="5"/>'+
-    '<g clip-path="url(#c'+uid+')"><polygon points="22,20 38,20 20,90 4,90" fill="#ffffff" opacity=".25"/><rect x="4" y="82" width="102" height="8" fill="'+INK+'" opacity=".14"/></g>'+
+    '<rect x="4" y="20" width="102" height="70" rx="12" fill="url(#g'+uid+')" stroke="'+INK+'" stroke-width="3.5"/>'+
+    '<g clip-path="url(#c'+uid+')"><polygon points="24,20 40,20 22,90 6,90" fill="#ffffff" opacity=".28"/><rect x="4" y="82" width="102" height="8" fill="'+INK+'" opacity=".14"/></g>'+
     /* remaches de esquina */
     '<circle cx="14" cy="30" r="2.6" fill="'+INK+'" opacity=".4"/><circle cx="96" cy="30" r="2.6" fill="'+INK+'" opacity=".4"/>'+
+    '<circle cx="14" cy="80" r="2.6" fill="'+INK+'" opacity=".4"/><circle cx="96" cy="80" r="2.6" fill="'+INK+'" opacity=".4"/>'+
     /* costura de la tapa */
-    '<rect x="4" y="48" width="102" height="6" fill="'+INK+'" opacity=".3"/>'+
-    traba(14,42)+traba(82,42)+
+    '<rect x="4" y="47" width="102" height="4" fill="'+INK+'" opacity=".28"/>'+
+    traba(14,40)+traba(82,40)+
     /* placa con el número */
-    '<rect x="31" y="58" width="48" height="28" rx="7" fill="'+PAPEL+'" stroke="'+INK+'" stroke-width="4"/>'+
-    '<rect x="35" y="61" width="40" height="7" rx="3.5" fill="'+INK+'" opacity=".08"/>'+
-    '<text x="55" y="79" text-anchor="middle" font-family="Fredoka, sans-serif" font-size="19" font-weight="700" fill="#241a56">'+numero+'</text>'+
-    '<text x="55" y="40" text-anchor="middle" font-family="Fredoka, sans-serif" font-size="11" font-weight="600" fill="'+INK+'" opacity=".5">TH</text>'+
+    '<rect x="29" y="57" width="52" height="29" rx="8" fill="'+PAPEL+'" stroke="'+INK+'" stroke-width="3"/>'+
+    '<rect x="33" y="60" width="44" height="6" rx="3" fill="'+INK+'" opacity=".07"/>'+
+    '<text x="55" y="79" text-anchor="middle" font-family="Fredoka, sans-serif" font-size="17" font-weight="700" fill="#241a56">'+numero+'</text>'+
+    '<text x="55" y="38" text-anchor="middle" font-family="Fredoka, sans-serif" font-size="10" font-weight="600" letter-spacing="2" fill="'+INK+'" opacity=".45">TH</text>'+
     '</svg>'+coronaSvg;
 }
 
@@ -2106,6 +2110,33 @@ document.addEventListener('keydown',e=>{
   if((e.ctrlKey||e.metaKey)&&!e.target.closest('input,textarea')&&['c','x','u','s','p','a'].includes(k)) e.preventDefault();
 });
 
+/* ---------- recordar datos del registro en esta compu ---------- */
+const PERFIL_KEY=i=>'th_perfil_'+i;
+function guardarPerfil(i){
+  try{
+    localStorage.setItem(PERFIL_KEY(i),JSON.stringify({
+      nombre:$('#in-nombre-'+i).value.trim(), apellido:$('#in-apellido-'+i).value.trim(),
+      seccion:sel[i].seccion, avatar:AVATARES.indexOf(sel[i].avatar)
+    }));
+  }catch(e){}
+}
+function cargarPerfiles(){
+  for(let i=0;i<2;i++){
+    let p=null;
+    try{ p=JSON.parse(localStorage.getItem(PERFIL_KEY(i))||'null'); }catch(e){}
+    if(!p) continue;
+    $('#in-nombre-'+i).value=p.nombre||'';
+    $('#in-apellido-'+i).value=p.apellido||'';
+    if(p.seccion==='A'||p.seccion==='B'){
+      sel[i].seccion=p.seccion;
+      document.querySelectorAll('#secciones-'+i+' .chip-seccion').forEach(x=>
+        x.setAttribute('aria-pressed',x.dataset.seccion===p.seccion?'true':'false'));
+    }
+    if(Number.isInteger(p.avatar)&&AVATARES[p.avatar]) sel[i].avatar=AVATARES[p.avatar];
+  }
+  pintarAvatares(0); pintarAvatares(1);
+}
+cargarPerfiles();
 pintarAvatares(0); pintarAvatares(1);
 $('#ico-ia').innerHTML='<img src="'+ICONO_MODO_IA+'" alt="Contra Boti">';
 $('#ico-2p').innerHTML='<img src="'+ICONO_MODO_2P+'" alt="Dos estudiantes">';
