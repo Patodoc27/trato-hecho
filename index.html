@@ -134,7 +134,8 @@ input[type=text]{width:100%;padding:11px 14px;font-size:1.05rem;font-family:var(
 .rank-nom b{display:block;font-family:var(--display);font-size:1.05rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .rank-nom small{display:block;color:var(--suave);font-weight:700;font-size:.8rem}
 .rank-barra{height:24px;border:3px solid #14101f;border-radius:999px;background:rgba(0,0,0,.35);overflow:hidden;position:relative}
-.rank-barra i{display:block;height:100%;background:linear-gradient(90deg,var(--turquesa),var(--verde))}
+.rank-barra i{display:block;height:100%;background:linear-gradient(90deg,#E5484D,#FF7A7A)}
+.rank-barra i.bien{background:linear-gradient(90deg,var(--turquesa),var(--verde))}
 .rank-barra em{position:absolute;inset:0;font-style:normal;font-size:.75rem;font-weight:800;color:#fff;display:grid;place-items:center;text-shadow:0 1px 2px #000}
 .rank-pts{text-align:right;min-width:86px}
 .rank-pts b{display:block;font-family:var(--display);font-size:1.5rem;color:var(--oro);line-height:1}
@@ -1206,7 +1207,7 @@ function rankingPintar(){
         '<img src="'+av.img+'" alt="'+escH(av.nombre)+'">'+
         '<span class="rank-nom"><b>'+escH(r.apellido+(r.apellido&&r.nombre?', ':'')+r.nombre)+'</b>'+
         '<small>'+(r.seccion?escH(r.seccion)+' · ':'')+(r.partidas===1?'1 partida':r.partidas+' partidas')+'</small></span>'+
-        '<span class="rank-barra"><i style="width:'+pct+'%"></i><em>'+pct+' %</em></span>'+
+        '<span class="rank-barra"><i class="'+(r.aciertos>=60?'bien':'')+'" style="width:'+pct+'%"></i><em>'+pct+' %</em></span>'+
         '<span class="rank-pts"><b>'+r.aciertos+'</b><small>aciertos</small><span class="rank-nota">Nota '+nota+'</span></span></div>';
     }).join(''):'<p class="rank-vacio">Todavía no hay partidas registradas.</p>';
   });
