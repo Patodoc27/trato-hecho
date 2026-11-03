@@ -1417,7 +1417,7 @@ function pedirPregunta(j,n){
   maletinPendiente=n;
   const q=j.banco.pop(); preguntaActual=q;
   $('#etiqueta-maletin').innerHTML='<span style="display:inline-flex;align-items:center;gap:8px">'+caraHTML(j,26)+'Valija N° '+n+' · '+j.nombre+'</span>';
-  $('#titulo-pregunta').textContent='Tenés dos minutos para razonar';
+  $('#titulo-pregunta').textContent='';
   $('#enunciado').textContent=q.q;
   const med=$('#media-pregunta');
   if(q.media){ med.innerHTML=mediaHTML(q.media); med.style.display='block'; }
@@ -2446,7 +2446,7 @@ function redVerPregunta(p){
   maletinPendiente=+p.n;
   const q=PREGUNTAS[+p.qi];preguntaActual=q;
   $('#etiqueta-maletin').innerHTML='<span style="display:inline-flex;align-items:center;gap:8px">'+caraHTML(j,26)+'Valija N° '+p.n+' · '+j.nombre+'</span>';
-  $('#titulo-pregunta').textContent=j.nombre+' tiene dos minutos para razonar';
+  $('#titulo-pregunta').textContent='';
   $('#enunciado').textContent=q.q;
   const med=$('#media-pregunta');
   if(q.media){med.innerHTML=mediaHTML(q.media);med.style.display='block';}
