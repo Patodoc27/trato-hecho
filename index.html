@@ -2294,6 +2294,7 @@ function redLiberar(){
 }
 $('#banda-btn').addEventListener('click',()=>{
   if(enLinea&&partidaActiva){
+    try{redEnviar('chau',{});}catch(e){}
     banda("");
     const j=J[1-yo];
     const mio=MALETINES.find(m=>m.n===j.miMaletin);
